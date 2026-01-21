@@ -917,7 +917,7 @@
     <string name="recent_network_devices">Recent Network Devices</string>
     <string name="discovered_network_devices">Discovered Network Devices</string>
 
-    <string name="get_started">Начать</string>
+    <string name="get_started">Get started</string>
     <string name="intro_welcome">Welcome to</string>
     <string name="stay_connected_anywhere">Stay Connected Anywhere</string>
     <string name="communicate_off_the_grid">Communicate off-the-grid with your friends and community without cell service.</string>
@@ -933,7 +933,7 @@
     <string name="low_battery">Low Battery</string>
     <string name="notifications_for_low_battery_alerts">Notifications for low battery alerts for the connected device.</string>
     <string name="critical_alerts_description">Select packets sent as critical will ignore the mute switch and Do Not Disturb settings in the OS notification center.</string>
-    <string name="configure_notification_permissions">Настроить уведомления</string>
+    <string name="configure_notification_permissions">Configure notification permissions</string>
     <string name="phone_location">Phone Location</string>
     <string name="phone_location_description">Meshtastic uses your phone's location to enable a number of features. You can update your location permissions at any time from settings.</string>
     <string name="share_location">Share Location</string>
@@ -944,17 +944,17 @@
     <string name="distance_filters_description">Filter the node list and mesh map based on proximity to your phone.</string>
     <string name="mesh_map_location">Mesh Map Location</string>
     <string name="mesh_map_location_description">Enables the blue location dot for your phone in the mesh map.</string>
-    <string name="configure_location_permissions">Настроить доступ к геолокации</string>
-    <string name="skip">Пропустить</string>
+    <string name="configure_location_permissions">Configure Location Permissions</string>
+    <string name="skip">Skip</string>
     <string name="settings">settings</string>
     <string name="critical_alerts">Critical Alerts</string>
     <string name="critical_alerts_dnd_request_text">To ensure you receive critical alerts, such as
         SOS messages, even when your device is in "Do Not Disturb" mode, you need to grant special
         permission. Please enable this in the notification settings.
     </string>
-    <string name="configure_critical_alerts">Настроить критические оповещения</string>
+    <string name="configure_critical_alerts">Configure Critical Alerts</string>
     <string name="notification_permissions_description">Meshtastic uses notifications to keep you updated on new messages and other important events. You can update your notification permissions at any time from settings.</string>
-    <string name="next">Далее</string>
+    <string name="next">Next</string>
     <string name="grant_permissions">Grant Permissions</string>
     <string name="nodes_queued_for_deletion">%1$d nodes queued for deletion:</string>
     <string name="clean_node_database_description">Caution: This removes nodes from in-app and on-device databases.\nSelections are additive.</string>

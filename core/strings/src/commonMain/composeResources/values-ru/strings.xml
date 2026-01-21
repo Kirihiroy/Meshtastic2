@@ -886,7 +886,7 @@
     <string name="firmware_edition">Версия прошивки</string>
     <string name="recent_network_devices">Недавние сетевые устройства</string>
     <string name="discovered_network_devices">Найденные сетевые устройства</string>
-    <string name="get_started">Начать работу</string>
+    <string name="get_started">Начать</string>
     <string name="intro_welcome">Добро пожаловать в</string>
     <string name="stay_connected_anywhere">Оставайтесь на связи везде</string>
     <string name="communicate_off_the_grid">Общайтесь вне сети со своими друзьями и сообществом без использования сотовой связи.</string>
@@ -902,7 +902,7 @@
     <string name="low_battery">Низкий заряд батареи</string>
     <string name="notifications_for_low_battery_alerts">Уведомления о низком заряде батареи для подключенного устройства.</string>
     <string name="critical_alerts_description">Выберите пакеты, отправленные как критические будут игнорировать переключатель звука и настройки \"Не беспокоить\" в центре уведомлений.</string>
-    <string name="configure_notification_permissions">Настроить права доступа для уведомлений</string>
+    <string name="configure_notification_permissions">Настроить уведомления</string>
     <string name="phone_location">Местоположение телефона</string>
     <string name="phone_location_description">Meshtastic использует местоположение вашего телефона, чтобы включить ряд функций. Вы можете обновить права доступа к вашему местоположению в любое время из настроек.</string>
     <string name="share_location">Поделиться геопозицией</string>
@@ -913,7 +913,7 @@
     <string name="distance_filters_description">Фильтровать список узлов и сетку на основе близости к вашему телефону.</string>
     <string name="mesh_map_location">Карта расположения узлов</string>
     <string name="mesh_map_location_description">Включает синюю точку местоположения для вашего телефона на карте узлов.</string>
-    <string name="configure_location_permissions">Настроить права доступа к местоположению</string>
+    <string name="configure_location_permissions">Настроить доступ к геолокации</string>
     <string name="skip">Пропустить</string>
     <string name="settings">настройки</string>
     <string name="critical_alerts">Алерты</string>
