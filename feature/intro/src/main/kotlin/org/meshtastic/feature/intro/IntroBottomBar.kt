@@ -17,11 +17,23 @@
 
 package org.meshtastic.feature.intro
 
-import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.material3.BottomAppBar
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.ArrowForward
+import androidx.compose.material.icons.outlined.SkipNext
 import androidx.compose.material3.Button
+import androidx.compose.material3.FilledTonalButton
+import androidx.compose.material3.Icon
+import androidx.compose.material3.HorizontalDivider
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -45,13 +57,39 @@ internal fun IntroBottomBar(
     configureButtonText: String,
     showSkipButton: Boolean = true,
 ) {
-    BottomAppBar(contentPadding = PaddingValues(horizontal = 16.dp, vertical = 20.dp)) {
-        if (showSkipButton) {
-            Button(onClick = onSkip) { Text(skipButtonText) }
+    Surface(
+        color = MaterialTheme.colorScheme.surfaceContainer,
+        shape = RoundedCornerShape(topStart = 24.dp, topEnd = 24.dp),
+        tonalElevation = 2.dp,
+    ) {
+        Column(modifier = Modifier.fillMaxWidth()) {
+            HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant)
+            Column(
+                modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 12.dp),
+                verticalArrangement = Arrangement.spacedBy(12.dp),
+            ) {
+                if (showSkipButton) {
+                    FilledTonalButton(
+                        onClick = onSkip,
+                        modifier = Modifier.fillMaxWidth().height(48.dp),
+                        shape = RoundedCornerShape(16.dp),
+                    ) {
+                        Icon(imageVector = Icons.Outlined.SkipNext, contentDescription = null)
+                        Spacer(modifier = Modifier.width(8.dp))
+                        Text(skipButtonText)
+                    }
+                }
+
+                Button(
+                    onClick = onConfigure,
+                    modifier = Modifier.fillMaxWidth().height(52.dp),
+                    shape = RoundedCornerShape(16.dp),
+                ) {
+                    Icon(imageVector = Icons.Outlined.ArrowForward, contentDescription = null)
+                    Spacer(modifier = Modifier.width(8.dp))
+                    Text(configureButtonText)
+                }
+            }
         }
-
-        Spacer(modifier = Modifier.fillMaxWidth().weight(1f))
-
-        Button(onClick = onConfigure) { Text(configureButtonText) }
     }
 }
