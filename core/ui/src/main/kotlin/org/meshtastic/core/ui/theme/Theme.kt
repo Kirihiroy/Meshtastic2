@@ -19,19 +19,93 @@
 
 package org.meshtastic.core.ui.theme
 
-import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.MaterialExpressiveTheme
 import androidx.compose.material3.MotionScheme.Companion.expressive
 import androidx.compose.material3.darkColorScheme
-import androidx.compose.material3.dynamicDarkColorScheme
-import androidx.compose.material3.dynamicLightColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Immutable
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
+
+private val monochromeLightScheme =
+    lightColorScheme(
+        primary = Color(0xFF000000),
+        onPrimary = Color(0xFFFFFFFF),
+        primaryContainer = Color(0xFFF2F2F2),
+        onPrimaryContainer = Color(0xFF000000),
+        secondary = Color(0xFF111111),
+        onSecondary = Color(0xFFFFFFFF),
+        secondaryContainer = Color(0xFFE6E6E6),
+        onSecondaryContainer = Color(0xFF000000),
+        tertiary = Color(0xFF1A1A1A),
+        onTertiary = Color(0xFFFFFFFF),
+        tertiaryContainer = Color(0xFFDCDCDC),
+        onTertiaryContainer = Color(0xFF000000),
+        error = Color(0xFFB00020),
+        onError = Color(0xFFFFFFFF),
+        errorContainer = Color(0xFFF9DEDC),
+        onErrorContainer = Color(0xFF410002),
+        background = Color(0xFFFFFFFF),
+        onBackground = Color(0xFF000000),
+        surface = Color(0xFFFFFFFF),
+        onSurface = Color(0xFF000000),
+        surfaceVariant = Color(0xFF000000),
+        onSurfaceVariant = Color(0xFFFFFFFF),
+        outline = Color(0xFF000000),
+        outlineVariant = Color(0xFF000000),
+        scrim = Color(0xFF000000),
+        inverseSurface = Color(0xFF1A1A1A),
+        inverseOnSurface = Color(0xFFF5F5F5),
+        inversePrimary = Color(0xFF000000),
+        surfaceDim = Color(0xFFE0E0E0),
+        surfaceBright = Color(0xFFFFFFFF),
+        surfaceContainerLowest = Color(0xFF000000),
+        surfaceContainerLow = Color(0xFF000000),
+        surfaceContainer = Color(0xFF000000),
+        surfaceContainerHigh = Color(0xFF111111),
+        surfaceContainerHighest = Color(0xFF1A1A1A),
+    )
+
+private val monochromeDarkScheme =
+    darkColorScheme(
+        primary = Color(0xFFFFFFFF),
+        onPrimary = Color(0xFF000000),
+        primaryContainer = Color(0xFF1A1A1A),
+        onPrimaryContainer = Color(0xFFFFFFFF),
+        secondary = Color(0xFFE0E0E0),
+        onSecondary = Color(0xFF000000),
+        secondaryContainer = Color(0xFF2A2A2A),
+        onSecondaryContainer = Color(0xFFFFFFFF),
+        tertiary = Color(0xFFCCCCCC),
+        onTertiary = Color(0xFF000000),
+        tertiaryContainer = Color(0xFF333333),
+        onTertiaryContainer = Color(0xFFFFFFFF),
+        error = Color(0xFFCF6679),
+        onError = Color(0xFF000000),
+        errorContainer = Color(0xFF8C1D18),
+        onErrorContainer = Color(0xFFF9DEDC),
+        background = Color(0xFF000000),
+        onBackground = Color(0xFFFFFFFF),
+        surface = Color(0xFF000000),
+        onSurface = Color(0xFFFFFFFF),
+        surfaceVariant = Color(0xFFFFFFFF),
+        onSurfaceVariant = Color(0xFF000000),
+        outline = Color(0xFFFFFFFF),
+        outlineVariant = Color(0xFFE0E0E0),
+        scrim = Color(0xFF000000),
+        inverseSurface = Color(0xFFF5F5F5),
+        inverseOnSurface = Color(0xFF1A1A1A),
+        inversePrimary = Color(0xFFFFFFFF),
+        surfaceDim = Color(0xFF0F0F0F),
+        surfaceBright = Color(0xFF2A2A2A),
+        surfaceContainerLowest = Color(0xFFFFFFFF),
+        surfaceContainerLow = Color(0xFFF5F5F5),
+        surfaceContainer = Color(0xFFFFFFFF),
+        surfaceContainerHigh = Color(0xFFEDEDED),
+        surfaceContainerHighest = Color(0xFFE0E0E0),
+    )
 
 private val lightScheme =
     lightColorScheme(
@@ -273,6 +347,7 @@ data class ColorFamily(val color: Color, val onColor: Color, val colorContainer:
 val unspecified_scheme = ColorFamily(Color.Unspecified, Color.Unspecified, Color.Unspecified, Color.Unspecified)
 
 @OptIn(ExperimentalMaterial3ExpressiveApi::class)
+@Suppress("UNUSED_PARAMETER")
 @Composable
 fun AppTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
@@ -281,16 +356,7 @@ fun AppTheme(
     @Composable()
     () -> Unit,
 ) {
-    val colorScheme =
-        when {
-            dynamicColor && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S -> {
-                val context = LocalContext.current
-                if (darkTheme) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)
-            }
-
-            darkTheme -> darkScheme
-            else -> lightScheme
-        }
+    val colorScheme = if (darkTheme) monochromeDarkScheme else monochromeLightScheme
 
     MaterialExpressiveTheme(
         colorScheme = colorScheme,
