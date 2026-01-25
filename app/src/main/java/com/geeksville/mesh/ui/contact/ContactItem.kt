@@ -34,15 +34,12 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.rounded.Comment
-import androidx.compose.material.icons.automirrored.rounded.VolumeOff
-import androidx.compose.material.icons.rounded.ChatBubbleOutline
-import androidx.compose.material.icons.rounded.Schedule
-import androidx.compose.material.icons.rounded.Tag
+import androidx.compose.material.icons.outlined.AccessTime
+import androidx.compose.material.icons.automirrored.twotone.VolumeOff
 import androidx.compose.material3.AssistChip
 import androidx.compose.material3.AssistChipDefaults
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.ElevatedCard
+import androidx.compose.material3.Divider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
@@ -82,22 +79,40 @@ fun ContactItem(
 ) = with(contact) {
     val colors = CardDefaults.elevatedCardColors(containerColor = MaterialTheme.colorScheme.surfaceContainerHigh)
 
-    ElevatedCard(
+    val colors =
+        if (isOutlined) {
+            CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant)
+        } else {
+            val containerColor =
+                if (selected) {
+                    MaterialTheme.colorScheme.secondaryContainer
+                } else {
+                    MaterialTheme.colorScheme.surfaceVariant
+                }
+            CardDefaults.cardColors(containerColor = containerColor)
+        }
+
+    Card(
         modifier =
         modifier
             .combinedClickable(onClick = onClick, onLongClick = onLongClick)
             .fillMaxWidth()
-            .padding(horizontal = 12.dp, vertical = 6.dp)
+            .padding(horizontal = 8.dp, vertical = 6.dp)
             .semantics { contentDescription = shortName },
         shape = RoundedCornerShape(16.dp),
         colors = colors,
-        elevation = CardDefaults.elevatedCardElevation(defaultElevation = 2.dp),
+        elevation = CardDefaults.cardElevation(defaultElevation = 2.dp),
     ) {
-        Column(modifier = Modifier.fillMaxWidth().padding(horizontal = 12.dp, vertical = 10.dp)) {
-            ContactHeader(contact = contact, channels = channels, onNodeChipClick = onNodeChipClick)
-            Spacer(modifier = Modifier.height(8.dp))
-            HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant)
-            ChatMetadata(modifier = Modifier.padding(top = 8.dp), contact = contact)
+        Column(modifier = Modifier.fillMaxWidth().padding(12.dp)) {
+            ContactHeader(
+                contact = contact,
+                channels = channels,
+                onNodeChipClick = onNodeChipClick,
+            )
+
+            Divider(modifier = Modifier.padding(vertical = 8.dp), color = MaterialTheme.colorScheme.outlineVariant)
+
+            ChatMetadata(contact = contact)
         }
     }
 }
@@ -123,7 +138,10 @@ private fun ContactHeader(
         AssistChip(
             onClick = onNodeChipClick,
             modifier =
-            Modifier.width(IntrinsicSize.Min).height(32.dp).semantics { contentDescription = contact.shortName },
+            Modifier
+                .width(IntrinsicSize.Min)
+                .height(32.dp)
+                .semantics { contentDescription = contact.shortName },
             label = {
                 Text(
                     text = contact.shortName,
@@ -138,15 +156,9 @@ private fun ContactHeader(
             colors = colors,
         )
 
-        // Show unlock icon for broadcast with default PSK
-        val isBroadcast = with(contact.contactKey) { getOrNull(1) == '^' || endsWith("^all") || endsWith("^broadcast") }
-
-        if (isBroadcast && channels != null) {
-            val channelIndex = contact.contactKey[0].digitToIntOrNull()
-            channelIndex?.let { index -> SecurityIcon(channels, index) }
-        }
-
-        Column(modifier = Modifier.padding(start = 8.dp).weight(1f)) {
+        Column(
+            modifier = Modifier.weight(1f).padding(start = 8.dp),
+        ) {
             Text(
                 style = MaterialTheme.typography.bodyLarge,
                 fontWeight = FontWeight.Medium,
@@ -154,26 +166,45 @@ private fun ContactHeader(
                 maxLines = 1,
                 text = contact.longName,
             )
-            Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(4.dp)) {
+            AnimatedVisibility(visible = contact.lastMessageTime.orEmpty().isNotBlank()) {
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    Icon(
+                        imageVector = Icons.Outlined.AccessTime,
+                        contentDescription = null,
+                        modifier = Modifier.size(14.dp),
+                        tint = MaterialTheme.colorScheme.onSurfaceVariant,
+                    )
+                    Text(
+                        text = contact.lastMessageTime.orEmpty(),
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                        style = MaterialTheme.typography.labelSmall,
+                        modifier = Modifier.padding(start = 4.dp),
+                    )
+                }
+            }
+        }
+
+        Row(verticalAlignment = Alignment.CenterVertically) {
+            // Show unlock icon for broadcast with default PSK
+            val isBroadcast =
+                with(contact.contactKey) { getOrNull(1) == '^' || endsWith("^all") || endsWith("^broadcast") }
+
+            if (isBroadcast && channels != null) {
+                val channelIndex = contact.contactKey[0].digitToIntOrNull()
+                channelIndex?.let { index ->
+                    SecurityIcon(channels, index, modifier = Modifier.padding(start = 4.dp))
+                }
+            }
+
+            AnimatedVisibility(visible = contact.isMuted) {
                 Icon(
-                    imageVector = Icons.Rounded.Schedule,
+                    modifier = Modifier.padding(start = 4.dp).size(18.dp),
+                    imageVector = Icons.AutoMirrored.TwoTone.VolumeOff,
                     contentDescription = null,
-                    modifier = Modifier.size(16.dp),
                     tint = MaterialTheme.colorScheme.onSurfaceVariant,
-                )
-                Text(
-                    text = contact.lastMessageTime.orEmpty(),
-                    color = MaterialTheme.colorScheme.onSurfaceVariant,
-                    style = MaterialTheme.typography.labelSmall,
                 )
             }
         }
-        Icon(
-            imageVector = Icons.Rounded.ChatBubbleOutline,
-            contentDescription = null,
-            modifier = Modifier.size(20.dp),
-            tint = MaterialTheme.colorScheme.onSurfaceVariant,
-        )
     }
 }
 
@@ -193,19 +224,6 @@ private fun ChatMetadata(contact: Contact, modifier: Modifier = Modifier) {
             overflow = TextOverflow.Ellipsis,
             maxLines = 2,
         )
-        Icon(
-            imageVector = Icons.AutoMirrored.Rounded.Comment,
-            contentDescription = null,
-            modifier = Modifier.padding(start = 4.dp).size(20.dp),
-            tint = MaterialTheme.colorScheme.onSurfaceVariant,
-        )
-        AnimatedVisibility(visible = contact.isMuted) {
-            Icon(
-                modifier = Modifier.padding(start = 4.dp).size(20.dp),
-                imageVector = Icons.AutoMirrored.Rounded.VolumeOff,
-                contentDescription = null,
-            )
-        }
         AnimatedVisibility(modifier = Modifier.padding(start = 4.dp), visible = contact.unreadCount > 0) {
             val text =
                 if (contact.unreadCount > UNREAD_MESSAGE_LIMIT) {
