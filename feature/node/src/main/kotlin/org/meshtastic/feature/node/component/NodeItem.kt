@@ -28,9 +28,15 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.material3.Card
+import androidx.compose.foundation.layout.width
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.rounded.Badge
+import androidx.compose.material.icons.rounded.Fingerprint
+import androidx.compose.material.icons.rounded.Memory
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.contentColorFor
@@ -115,38 +121,55 @@ fun NodeItem(
             }
         }
 
-    Card(modifier = modifier.fillMaxWidth().defaultMinSize(minHeight = 80.dp), colors = cardColors) {
+    ElevatedCard(
+        modifier =
+        modifier
+            .fillMaxWidth()
+            .defaultMinSize(minHeight = 96.dp)
+            .combinedClickable(onClick = onClick, onLongClick = onLongClick),
+        colors = cardColors,
+        elevation = CardDefaults.elevatedCardElevation(defaultElevation = 2.dp),
+    ) {
         Column(
             modifier =
-            Modifier.combinedClickable(onClick = onClick, onLongClick = onLongClick).fillMaxWidth().padding(8.dp),
+            Modifier.fillMaxWidth().padding(horizontal = 12.dp, vertical = 10.dp),
         ) {
             Row(modifier = Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
                 NodeChip(node = thatNode)
-
-                NodeKeyStatusIcon(
-                    hasPKC = thatNode.hasPKC,
-                    mismatchKey = thatNode.mismatchKey,
-                    publicKey = thatNode.user.publicKey,
-                    modifier = Modifier.size(32.dp),
-                )
-                Text(
-                    modifier = Modifier.weight(1f),
-                    text = longName,
-                    style = MaterialTheme.typography.titleMediumEmphasized.copy(fontStyle = style),
-                    textDecoration = TextDecoration.LineThrough.takeIf { isIgnored },
-                    softWrap = true,
-                )
-                LastHeardInfo(lastHeard = thatNode.lastHeard, contentColor = contentColor)
-                NodeStatusIcons(
-                    isThisNode = isThisNode,
-                    isFavorite = isFavorite,
-                    isMuted = isMuted,
-                    isUnmessageable = unmessageable,
-                    connectionState = connectionState,
-                )
+                Spacer(modifier = Modifier.width(8.dp))
+                Column(modifier = Modifier.weight(1f)) {
+                    Text(
+                        text = longName,
+                        style = MaterialTheme.typography.titleMediumEmphasized.copy(fontStyle = style),
+                        textDecoration = TextDecoration.LineThrough.takeIf { isIgnored },
+                        softWrap = true,
+                    )
+                    LastHeardInfo(
+                        lastHeard = thatNode.lastHeard,
+                        contentColor = contentColor,
+                        modifier = Modifier.padding(top = 2.dp),
+                    )
+                }
+                Column(horizontalAlignment = Alignment.End) {
+                    NodeKeyStatusIcon(
+                        hasPKC = thatNode.hasPKC,
+                        mismatchKey = thatNode.mismatchKey,
+                        publicKey = thatNode.user.publicKey,
+                        modifier = Modifier.size(28.dp),
+                    )
+                    NodeStatusIcons(
+                        isThisNode = isThisNode,
+                        isFavorite = isFavorite,
+                        isMuted = isMuted,
+                        isUnmessageable = unmessageable,
+                        connectionState = connectionState,
+                    )
+                }
             }
 
-            Spacer(modifier = Modifier.height(4.dp))
+            Spacer(modifier = Modifier.height(8.dp))
+            HorizontalDivider(color = contentColor.copy(alpha = 0.2f))
+            Spacer(modifier = Modifier.height(8.dp))
 
             Row(
                 modifier = Modifier.fillMaxWidth(),
@@ -205,15 +228,24 @@ fun NodeItem(
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically,
             ) {
-                val labelStyle =
-                    if (thatNode.isUnknownUser) {
-                        MaterialTheme.typography.labelSmall.copy(fontStyle = FontStyle.Italic)
-                    } else {
-                        MaterialTheme.typography.labelSmall
-                    }
-                Text(text = thatNode.user.hwModel.name, style = labelStyle)
-                Text(text = thatNode.user.role.name, style = labelStyle)
-                Text(text = thatNode.user.id.ifEmpty { "???" }, style = labelStyle)
+                IconInfo(
+                    icon = Icons.Rounded.Memory,
+                    contentDescription = thatNode.user.hwModel.name,
+                    text = thatNode.user.hwModel.name,
+                    contentColor = contentColor,
+                )
+                IconInfo(
+                    icon = Icons.Rounded.Badge,
+                    contentDescription = thatNode.user.role.name,
+                    text = thatNode.user.role.name,
+                    contentColor = contentColor,
+                )
+                IconInfo(
+                    icon = Icons.Rounded.Fingerprint,
+                    contentDescription = thatNode.user.id.ifEmpty { "???" },
+                    text = thatNode.user.id.ifEmpty { "???" },
+                    contentColor = contentColor,
+                )
             }
         }
     }

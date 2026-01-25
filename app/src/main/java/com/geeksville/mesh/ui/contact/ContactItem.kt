@@ -24,6 +24,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -37,10 +38,10 @@ import androidx.compose.material.icons.outlined.AccessTime
 import androidx.compose.material.icons.automirrored.twotone.VolumeOff
 import androidx.compose.material3.AssistChip
 import androidx.compose.material3.AssistChipDefaults
-import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Divider
 import androidx.compose.material3.Icon
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -76,7 +77,7 @@ fun ContactItem(
     onNodeChipClick: () -> Unit = {},
     channels: AppOnlyProtos.ChannelSet? = null,
 ) = with(contact) {
-    val isOutlined = !selected && !isActive
+    val colors = CardDefaults.elevatedCardColors(containerColor = MaterialTheme.colorScheme.surfaceContainerHigh)
 
     val colors =
         if (isOutlined) {
@@ -98,7 +99,7 @@ fun ContactItem(
             .fillMaxWidth()
             .padding(horizontal = 8.dp, vertical = 6.dp)
             .semantics { contentDescription = shortName },
-        shape = RoundedCornerShape(12.dp),
+        shape = RoundedCornerShape(16.dp),
         colors = colors,
         elevation = CardDefaults.cardElevation(defaultElevation = 2.dp),
     ) {
@@ -148,6 +149,9 @@ private fun ContactHeader(
                     style = MaterialTheme.typography.labelLarge,
                     textAlign = TextAlign.Center,
                 )
+            },
+            leadingIcon = {
+                Icon(imageVector = Icons.Rounded.Tag, contentDescription = null)
             },
             colors = colors,
         )
