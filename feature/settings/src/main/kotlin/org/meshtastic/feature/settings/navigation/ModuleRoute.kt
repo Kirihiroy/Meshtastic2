@@ -18,19 +18,19 @@
 package org.meshtastic.feature.settings.navigation
 
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.Forward
-import androidx.compose.material.icons.automirrored.filled.Message
-import androidx.compose.material.icons.automirrored.filled.VolumeUp
-import androidx.compose.material.icons.filled.Cloud
-import androidx.compose.material.icons.filled.DataUsage
-import androidx.compose.material.icons.filled.LightMode
-import androidx.compose.material.icons.filled.Notifications
-import androidx.compose.material.icons.filled.People
-import androidx.compose.material.icons.filled.PermScanWifi
-import androidx.compose.material.icons.filled.Sensors
-import androidx.compose.material.icons.filled.SettingsRemote
-import androidx.compose.material.icons.filled.Speed
-import androidx.compose.material.icons.filled.Usb
+import androidx.compose.material.icons.automirrored.rounded.ForwardToInbox
+import androidx.compose.material.icons.automirrored.rounded.Message
+import androidx.compose.material.icons.automirrored.rounded.VolumeUp
+import androidx.compose.material.icons.rounded.CloudQueue
+import androidx.compose.material.icons.rounded.LightMode
+import androidx.compose.material.icons.rounded.NotificationsActive
+import androidx.compose.material.icons.rounded.People
+import androidx.compose.material.icons.rounded.PermScanWifi
+import androidx.compose.material.icons.rounded.QueryStats
+import androidx.compose.material.icons.rounded.Sensors
+import androidx.compose.material.icons.rounded.SettingsRemote
+import androidx.compose.material.icons.rounded.Speed
+import androidx.compose.material.icons.rounded.Usb
 import androidx.compose.ui.graphics.vector.ImageVector
 import org.jetbrains.compose.resources.StringResource
 import org.meshtastic.core.navigation.Route
@@ -56,79 +56,79 @@ enum class ModuleRoute(val title: StringResource, val route: Route, val icon: Im
     MQTT(
         Res.string.mqtt,
         SettingsRoutes.MQTT,
-        Icons.Default.Cloud,
+        Icons.Rounded.CloudQueue,
         AdminProtos.AdminMessage.ModuleConfigType.MQTT_CONFIG_VALUE,
     ),
     SERIAL(
         Res.string.serial,
         SettingsRoutes.Serial,
-        Icons.Default.Usb,
+        Icons.Rounded.Usb,
         AdminProtos.AdminMessage.ModuleConfigType.SERIAL_CONFIG_VALUE,
     ),
     EXT_NOTIFICATION(
         Res.string.external_notification,
         SettingsRoutes.ExtNotification,
-        Icons.Default.Notifications,
+        Icons.Rounded.NotificationsActive,
         AdminProtos.AdminMessage.ModuleConfigType.EXTNOTIF_CONFIG_VALUE,
     ),
     STORE_FORWARD(
         Res.string.store_forward,
         SettingsRoutes.StoreForward,
-        Icons.AutoMirrored.Default.Forward,
+        Icons.AutoMirrored.Rounded.ForwardToInbox,
         AdminProtos.AdminMessage.ModuleConfigType.STOREFORWARD_CONFIG_VALUE,
     ),
     RANGE_TEST(
         Res.string.range_test,
         SettingsRoutes.RangeTest,
-        Icons.Default.Speed,
+        Icons.Rounded.Speed,
         AdminProtos.AdminMessage.ModuleConfigType.RANGETEST_CONFIG_VALUE,
     ),
     TELEMETRY(
         Res.string.telemetry,
         SettingsRoutes.Telemetry,
-        Icons.Default.DataUsage,
+        Icons.Rounded.QueryStats,
         AdminProtos.AdminMessage.ModuleConfigType.TELEMETRY_CONFIG_VALUE,
     ),
     CANNED_MESSAGE(
         Res.string.canned_message,
         SettingsRoutes.CannedMessage,
-        Icons.AutoMirrored.Default.Message,
+        Icons.AutoMirrored.Rounded.Message,
         AdminProtos.AdminMessage.ModuleConfigType.CANNEDMSG_CONFIG_VALUE,
     ),
     AUDIO(
         Res.string.audio,
         SettingsRoutes.Audio,
-        Icons.AutoMirrored.Default.VolumeUp,
+        Icons.AutoMirrored.Rounded.VolumeUp,
         AdminProtos.AdminMessage.ModuleConfigType.AUDIO_CONFIG_VALUE,
     ),
     REMOTE_HARDWARE(
         Res.string.remote_hardware,
         SettingsRoutes.RemoteHardware,
-        Icons.Default.SettingsRemote,
+        Icons.Rounded.SettingsRemote,
         AdminProtos.AdminMessage.ModuleConfigType.REMOTEHARDWARE_CONFIG_VALUE,
     ),
     NEIGHBOR_INFO(
         Res.string.neighbor_info,
         SettingsRoutes.NeighborInfo,
-        Icons.Default.People,
+        Icons.Rounded.People,
         AdminProtos.AdminMessage.ModuleConfigType.NEIGHBORINFO_CONFIG_VALUE,
     ),
     AMBIENT_LIGHTING(
         Res.string.ambient_lighting,
         SettingsRoutes.AmbientLighting,
-        Icons.Default.LightMode,
+        Icons.Rounded.LightMode,
         AdminProtos.AdminMessage.ModuleConfigType.AMBIENTLIGHTING_CONFIG_VALUE,
     ),
     DETECTION_SENSOR(
         Res.string.detection_sensor,
         SettingsRoutes.DetectionSensor,
-        Icons.Default.Sensors,
+        Icons.Rounded.Sensors,
         AdminProtos.AdminMessage.ModuleConfigType.DETECTIONSENSOR_CONFIG_VALUE,
     ),
     PAXCOUNTER(
         Res.string.paxcounter,
         SettingsRoutes.Paxcounter,
-        Icons.Default.PermScanWifi,
+        Icons.Rounded.PermScanWifi,
         AdminProtos.AdminMessage.ModuleConfigType.PAXCOUNTER_CONFIG_VALUE,
     ),
     ;

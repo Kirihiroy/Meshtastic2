@@ -19,13 +19,13 @@ package org.meshtastic.feature.map.component
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.LocationDisabled
-import androidx.compose.material.icons.filled.Navigation
-import androidx.compose.material.icons.outlined.Layers
-import androidx.compose.material.icons.outlined.Map
-import androidx.compose.material.icons.outlined.MyLocation
-import androidx.compose.material.icons.outlined.Navigation
-import androidx.compose.material.icons.outlined.Tune
+import androidx.compose.material.icons.rounded.Explore
+import androidx.compose.material.icons.rounded.FilterAlt
+import androidx.compose.material.icons.rounded.Layers
+import androidx.compose.material.icons.rounded.LocationOff
+import androidx.compose.material.icons.rounded.Map
+import androidx.compose.material.icons.rounded.MyLocation
+import androidx.compose.material.icons.rounded.NearMe
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.HorizontalFloatingToolbar
 import androidx.compose.material3.MaterialTheme
@@ -73,7 +73,7 @@ fun MapControlsOverlay(
             CompassButton(onClick = onCompassClick, bearing = bearing, isFollowing = followPhoneBearing)
             if (isNodeMap) {
                 MapButton(
-                    icon = Icons.Outlined.Tune,
+                    icon = Icons.Rounded.FilterAlt,
                     contentDescription = stringResource(Res.string.map_filter),
                     onClick = onToggleMapFilterMenu,
                 )
@@ -85,7 +85,7 @@ fun MapControlsOverlay(
             } else {
                 Box {
                     MapButton(
-                        icon = Icons.Outlined.Tune,
+                        icon = Icons.Rounded.FilterAlt,
                         contentDescription = stringResource(Res.string.map_filter),
                         onClick = onToggleMapFilterMenu,
                     )
@@ -99,7 +99,7 @@ fun MapControlsOverlay(
 
             Box {
                 MapButton(
-                    icon = Icons.Outlined.Map,
+                    icon = Icons.Rounded.Map,
                     contentDescription = stringResource(Res.string.map_tile_source),
                     onClick = onToggleMapTypeMenu,
                 )
@@ -112,7 +112,7 @@ fun MapControlsOverlay(
             }
 
             MapButton(
-                icon = Icons.Outlined.Layers,
+                icon = Icons.Rounded.Layers,
                 contentDescription = stringResource(Res.string.manage_map_layers),
                 onClick = onManageLayersClicked,
             )
@@ -122,9 +122,9 @@ fun MapControlsOverlay(
                 MapButton(
                     icon =
                     if (isLocationTrackingEnabled) {
-                        Icons.Default.LocationDisabled
+                        Icons.Rounded.LocationOff
                     } else {
-                        Icons.Outlined.MyLocation
+                        Icons.Rounded.MyLocation
                     },
                     contentDescription = stringResource(Res.string.toggle_my_position),
                     onClick = onToggleLocationTracking,
@@ -136,7 +136,7 @@ fun MapControlsOverlay(
 
 @Composable
 private fun CompassButton(onClick: () -> Unit, bearing: Float, isFollowing: Boolean) {
-    val icon = if (isFollowing) Icons.Filled.Navigation else Icons.Outlined.Navigation
+    val icon = if (isFollowing) Icons.Rounded.Explore else Icons.Rounded.NearMe
 
     MapButton(
         modifier = Modifier.rotate(-bearing),

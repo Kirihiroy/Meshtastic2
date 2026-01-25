@@ -24,6 +24,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -33,12 +34,17 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.twotone.VolumeOff
+import androidx.compose.material.icons.automirrored.rounded.Comment
+import androidx.compose.material.icons.automirrored.rounded.VolumeOff
+import androidx.compose.material.icons.rounded.ChatBubbleOutline
+import androidx.compose.material.icons.rounded.Schedule
+import androidx.compose.material.icons.rounded.Tag
 import androidx.compose.material3.AssistChip
 import androidx.compose.material3.AssistChipDefaults
-import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.Icon
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -74,38 +80,24 @@ fun ContactItem(
     onNodeChipClick: () -> Unit = {},
     channels: AppOnlyProtos.ChannelSet? = null,
 ) = with(contact) {
-    val isOutlined = !selected && !isActive
+    val colors = CardDefaults.elevatedCardColors(containerColor = MaterialTheme.colorScheme.surfaceContainerHigh)
 
-    val colors =
-        if (isOutlined) {
-            CardDefaults.outlinedCardColors(containerColor = Color.Transparent)
-        } else {
-            val containerColor = if (selected) Color.Gray else MaterialTheme.colorScheme.surfaceVariant
-            CardDefaults.cardColors(containerColor = containerColor)
-        }
-
-    val border =
-        if (isOutlined) {
-            CardDefaults.outlinedCardBorder()
-        } else {
-            null
-        }
-
-    Card(
+    ElevatedCard(
         modifier =
         modifier
             .combinedClickable(onClick = onClick, onLongClick = onLongClick)
             .fillMaxWidth()
-            .padding(horizontal = 8.dp, vertical = 4.dp)
+            .padding(horizontal = 12.dp, vertical = 6.dp)
             .semantics { contentDescription = shortName },
-        shape = RoundedCornerShape(12.dp),
+        shape = RoundedCornerShape(16.dp),
         colors = colors,
-        border = border,
+        elevation = CardDefaults.elevatedCardElevation(defaultElevation = 2.dp),
     ) {
-        Column(modifier = Modifier.fillMaxWidth().padding(8.dp)) {
+        Column(modifier = Modifier.fillMaxWidth().padding(horizontal = 12.dp, vertical = 10.dp)) {
             ContactHeader(contact = contact, channels = channels, onNodeChipClick = onNodeChipClick)
-
-            ChatMetadata(modifier = Modifier.padding(top = 4.dp), contact = contact)
+            Spacer(modifier = Modifier.height(8.dp))
+            HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant)
+            ChatMetadata(modifier = Modifier.padding(top = 8.dp), contact = contact)
         }
     }
 }
@@ -140,6 +132,9 @@ private fun ContactHeader(
                     textAlign = TextAlign.Center,
                 )
             },
+            leadingIcon = {
+                Icon(imageVector = Icons.Rounded.Tag, contentDescription = null)
+            },
             colors = colors,
         )
 
@@ -151,19 +146,33 @@ private fun ContactHeader(
             channelIndex?.let { index -> SecurityIcon(channels, index) }
         }
 
-        Text(
-            modifier = Modifier.padding(start = 8.dp).weight(1f),
-            style = MaterialTheme.typography.bodyLarge,
-            fontWeight = FontWeight.Medium,
-            overflow = TextOverflow.Ellipsis,
-            maxLines = 1,
-            text = contact.longName,
-        )
-        Text(
-            text = contact.lastMessageTime.orEmpty(),
-            color = MaterialTheme.colorScheme.onSurfaceVariant,
-            style = MaterialTheme.typography.labelSmall,
-            modifier = Modifier,
+        Column(modifier = Modifier.padding(start = 8.dp).weight(1f)) {
+            Text(
+                style = MaterialTheme.typography.bodyLarge,
+                fontWeight = FontWeight.Medium,
+                overflow = TextOverflow.Ellipsis,
+                maxLines = 1,
+                text = contact.longName,
+            )
+            Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(4.dp)) {
+                Icon(
+                    imageVector = Icons.Rounded.Schedule,
+                    contentDescription = null,
+                    modifier = Modifier.size(16.dp),
+                    tint = MaterialTheme.colorScheme.onSurfaceVariant,
+                )
+                Text(
+                    text = contact.lastMessageTime.orEmpty(),
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    style = MaterialTheme.typography.labelSmall,
+                )
+            }
+        }
+        Icon(
+            imageVector = Icons.Rounded.ChatBubbleOutline,
+            contentDescription = null,
+            modifier = Modifier.size(20.dp),
+            tint = MaterialTheme.colorScheme.onSurfaceVariant,
         )
     }
 }
@@ -184,10 +193,16 @@ private fun ChatMetadata(contact: Contact, modifier: Modifier = Modifier) {
             overflow = TextOverflow.Ellipsis,
             maxLines = 2,
         )
+        Icon(
+            imageVector = Icons.AutoMirrored.Rounded.Comment,
+            contentDescription = null,
+            modifier = Modifier.padding(start = 4.dp).size(20.dp),
+            tint = MaterialTheme.colorScheme.onSurfaceVariant,
+        )
         AnimatedVisibility(visible = contact.isMuted) {
             Icon(
                 modifier = Modifier.padding(start = 4.dp).size(20.dp),
-                imageVector = Icons.AutoMirrored.TwoTone.VolumeOff,
+                imageVector = Icons.AutoMirrored.Rounded.VolumeOff,
                 contentDescription = null,
             )
         }
