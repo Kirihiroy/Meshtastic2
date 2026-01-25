@@ -28,8 +28,8 @@ import org.meshtastic.core.model.util.toString
 import org.meshtastic.core.strings.Res
 import org.meshtastic.core.strings.altitude
 import org.meshtastic.core.strings.elevation_suffix
-import org.meshtastic.core.ui.icon.Elevation
-import org.meshtastic.core.ui.icon.MeshtasticIcons
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.rounded.Terrain
 import org.meshtastic.proto.ConfigProtos.Config.DisplayConfig.DisplayUnits
 
 @Composable
@@ -42,7 +42,7 @@ fun ElevationInfo(
 ) {
     IconInfo(
         modifier = modifier,
-        icon = MeshtasticIcons.Elevation,
+        icon = Icons.Rounded.Terrain,
         contentDescription = stringResource(Res.string.altitude),
         text = altitude.metersIn(system).toString(system) + " " + suffix,
         contentColor = contentColor,
