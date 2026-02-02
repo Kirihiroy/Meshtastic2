@@ -76,8 +76,8 @@ fun ContactItem(
     onLongClick: () -> Unit = {},
     onNodeChipClick: () -> Unit = {},
     channels: AppOnlyProtos.ChannelSet? = null,
-) = with(contact) {
-    val colors = CardDefaults.elevatedCardColors(containerColor = MaterialTheme.colorScheme.surfaceContainerHigh)
+) {
+    val isOutlined = !selected && !isActive
 
     val colors =
         if (isOutlined) {
@@ -98,8 +98,8 @@ fun ContactItem(
             .combinedClickable(onClick = onClick, onLongClick = onLongClick)
             .fillMaxWidth()
             .padding(horizontal = 8.dp, vertical = 6.dp)
-            .semantics { contentDescription = shortName },
-        shape = RoundedCornerShape(16.dp),
+            .semantics { contentDescription = contact.shortName },
+        shape = RoundedCornerShape(12.dp),
         colors = colors,
         elevation = CardDefaults.cardElevation(defaultElevation = 2.dp),
     ) {
