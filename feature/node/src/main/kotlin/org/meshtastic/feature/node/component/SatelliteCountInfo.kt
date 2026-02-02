@@ -18,7 +18,7 @@
 package org.meshtastic.feature.node.component
 
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.twotone.SatelliteAlt
+import androidx.compose.material.icons.rounded.SatelliteAlt
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -37,7 +37,7 @@ fun SatelliteCountInfo(
 ) {
     IconInfo(
         modifier = modifier,
-        icon = Icons.TwoTone.SatelliteAlt,
+        icon = Icons.Rounded.SatelliteAlt,
         contentDescription = stringResource(Res.string.sats),
         text = "$satCount",
         contentColor = contentColor,
