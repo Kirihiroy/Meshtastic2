@@ -38,11 +38,11 @@ import androidx.compose.material.icons.outlined.AccessTime
 import androidx.compose.material.icons.automirrored.twotone.VolumeOff
 import androidx.compose.material3.AssistChip
 import androidx.compose.material3.AssistChipDefaults
-import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Divider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -79,20 +79,18 @@ fun ContactItem(
 ) {
     val isOutlined = !selected && !isActive
 
-    val colors =
+    val containerColor =
         if (isOutlined) {
-            CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant)
+            MaterialTheme.colorScheme.surfaceVariant
         } else {
-            val containerColor =
-                if (selected) {
-                    MaterialTheme.colorScheme.secondaryContainer
-                } else {
-                    MaterialTheme.colorScheme.surfaceVariant
-                }
-            CardDefaults.cardColors(containerColor = containerColor)
+            if (selected) {
+                MaterialTheme.colorScheme.secondaryContainer
+            } else {
+                MaterialTheme.colorScheme.surfaceVariant
+            }
         }
 
-    Card(
+    Surface(
         modifier =
         modifier
             .combinedClickable(onClick = onClick, onLongClick = onLongClick)
@@ -100,8 +98,8 @@ fun ContactItem(
             .padding(horizontal = 8.dp, vertical = 6.dp)
             .semantics { contentDescription = contact.shortName },
         shape = RoundedCornerShape(12.dp),
-        colors = colors,
-        elevation = CardDefaults.cardElevation(defaultElevation = 2.dp),
+        color = containerColor,
+        shadowElevation = 2.dp,
     ) {
         Column(modifier = Modifier.fillMaxWidth().padding(12.dp)) {
             ContactHeader(
