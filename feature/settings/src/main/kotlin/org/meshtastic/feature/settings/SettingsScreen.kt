@@ -36,15 +36,15 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.rounded.KeyboardArrowRight
-import androidx.compose.material.icons.filled.BugReport
-import androidx.compose.material.icons.rounded.AppSettingsAlt
+import androidx.compose.material.icons.rounded.Analytics
+import androidx.compose.material.icons.rounded.FileDownload
 import androidx.compose.material.icons.rounded.FormatPaint
 import androidx.compose.material.icons.rounded.Info
 import androidx.compose.material.icons.rounded.Language
 import androidx.compose.material.icons.rounded.LocationOn
 import androidx.compose.material.icons.rounded.Memory
-import androidx.compose.material.icons.rounded.Output
-import androidx.compose.material.icons.rounded.WavingHand
+import androidx.compose.material.icons.rounded.SettingsSuggest
+import androidx.compose.material.icons.rounded.TipsAndUpdates
 import androidx.compose.material3.AlertDialogDefaults
 import androidx.compose.material3.BasicAlertDialog
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -281,7 +281,7 @@ fun SettingsScreen(
                     SwitchListItem(
                         text = stringResource(Res.string.analytics_okay),
                         checked = allowed,
-                        leadingIcon = Icons.Default.BugReport,
+                        leadingIcon = Icons.Rounded.Analytics,
                         onClick = { viewModel.toggleAnalyticsAllowed() },
                     )
                 }
@@ -375,7 +375,7 @@ fun SettingsScreen(
                     }
                 ListItem(
                     text = stringResource(Res.string.save_rangetest),
-                    leadingIcon = Icons.Rounded.Output,
+                    leadingIcon = Icons.Rounded.FileDownload,
                     trailingIcon = null,
                 ) {
                     val intent =
@@ -395,7 +395,7 @@ fun SettingsScreen(
                     }
                 ListItem(
                     text = stringResource(Res.string.export_data_csv),
-                    leadingIcon = Icons.Rounded.Output,
+                    leadingIcon = Icons.Rounded.FileDownload,
                     trailingIcon = null,
                 ) {
                     val intent =
@@ -409,7 +409,7 @@ fun SettingsScreen(
 
                 ListItem(
                     text = stringResource(Res.string.intro_show),
-                    leadingIcon = Icons.Rounded.WavingHand,
+                    leadingIcon = Icons.Rounded.TipsAndUpdates,
                     trailingIcon = null,
                 ) {
                     settingsViewModel.showAppIntro()
@@ -417,7 +417,7 @@ fun SettingsScreen(
 
                 ListItem(
                     text = stringResource(Res.string.system_settings),
-                    leadingIcon = Icons.Rounded.AppSettingsAlt,
+                    leadingIcon = Icons.Rounded.SettingsSuggest,
                     trailingIcon = null,
                 ) {
                     val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)

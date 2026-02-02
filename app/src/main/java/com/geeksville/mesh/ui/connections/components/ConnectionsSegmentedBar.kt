@@ -18,9 +18,9 @@
 package com.geeksville.mesh.ui.connections.components
 
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.rounded.Bluetooth
-import androidx.compose.material.icons.rounded.Usb
-import androidx.compose.material.icons.rounded.Wifi
+import androidx.compose.material.icons.rounded.BluetoothConnected
+import androidx.compose.material.icons.rounded.Cable
+import androidx.compose.material.icons.rounded.Router
 import androidx.compose.material3.Icon
 import androidx.compose.material3.SegmentedButton
 import androidx.compose.material3.SegmentedButtonDefaults
@@ -62,9 +62,9 @@ fun ConnectionsSegmentedBar(
 }
 
 private enum class Item(val imageVector: ImageVector, val textRes: StringResource, val deviceType: DeviceType) {
-    BLUETOOTH(imageVector = Icons.Rounded.Bluetooth, textRes = Res.string.bluetooth, deviceType = DeviceType.BLE),
-    NETWORK(imageVector = Icons.Rounded.Wifi, textRes = Res.string.network, deviceType = DeviceType.TCP),
-    SERIAL(imageVector = Icons.Rounded.Usb, textRes = Res.string.serial, deviceType = DeviceType.USB),
+    BLUETOOTH(imageVector = Icons.Rounded.BluetoothConnected, textRes = Res.string.bluetooth, deviceType = DeviceType.BLE),
+    NETWORK(imageVector = Icons.Rounded.Router, textRes = Res.string.network, deviceType = DeviceType.TCP),
+    SERIAL(imageVector = Icons.Rounded.Cable, textRes = Res.string.serial, deviceType = DeviceType.USB),
 }
 
 @Preview(showBackground = true)

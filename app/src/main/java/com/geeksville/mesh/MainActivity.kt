@@ -36,6 +36,7 @@ import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.platform.LocalView
+import androidx.core.os.LocaleListCompat
 import androidx.core.net.toUri
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -75,6 +76,8 @@ class MainActivity : AppCompatActivity() {
             // Disable three-button navbar scrim
             window.setNavigationBarContrastEnforced(false)
         }
+
+        AppCompatDelegate.setApplicationLocales(LocaleListCompat.forLanguageTags("ru"))
 
         super.onCreate(savedInstanceState)
 

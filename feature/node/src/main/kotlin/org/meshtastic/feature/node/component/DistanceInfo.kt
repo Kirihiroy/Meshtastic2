@@ -18,7 +18,7 @@
 package org.meshtastic.feature.node.component
 
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.rounded.SocialDistance
+import androidx.compose.material.icons.rounded.Route
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -37,7 +37,7 @@ fun DistanceInfo(
 ) {
     IconInfo(
         modifier = modifier,
-        icon = Icons.Rounded.SocialDistance,
+        icon = Icons.Rounded.Route,
         contentDescription = stringResource(Res.string.distance),
         text = distance,
         contentColor = contentColor,
