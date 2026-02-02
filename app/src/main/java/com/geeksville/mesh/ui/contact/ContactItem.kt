@@ -24,6 +24,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -36,9 +37,11 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.AccessTime
 import androidx.compose.material.icons.automirrored.twotone.VolumeOff
 import androidx.compose.material3.AssistChip
+import androidx.compose.material3.AssistChipColors
 import androidx.compose.material3.AssistChipDefaults
 import androidx.compose.material3.Divider
 import androidx.compose.material3.Icon
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -131,7 +134,8 @@ private fun ContactHeader(
         }
 
     Row(modifier = modifier.padding(0.dp), verticalAlignment = Alignment.CenterVertically) {
-        AssistChip(
+        Tag(
+            text = contact.shortName,
             onClick = onNodeChipClick,
             modifier =
             Modifier
@@ -147,6 +151,11 @@ private fun ContactHeader(
                 )
             },
             colors = colors,
+            modifier =
+            Modifier
+                .width(IntrinsicSize.Min)
+                .height(32.dp)
+                .semantics { contentDescription = contact.shortName },
         )
 
         Column(
@@ -199,6 +208,28 @@ private fun ContactHeader(
             }
         }
     }
+}
+
+@Composable
+private fun Tag(
+    text: String,
+    onClick: () -> Unit,
+    colors: AssistChipColors,
+    modifier: Modifier = Modifier,
+) {
+    AssistChip(
+        onClick = onClick,
+        modifier = modifier,
+        label = {
+            Text(
+                text = text,
+                modifier = Modifier.fillMaxWidth(),
+                style = MaterialTheme.typography.labelLarge,
+                textAlign = TextAlign.Center,
+            )
+        },
+        colors = colors,
+    )
 }
 
 private const val UNREAD_MESSAGE_LIMIT = 99
