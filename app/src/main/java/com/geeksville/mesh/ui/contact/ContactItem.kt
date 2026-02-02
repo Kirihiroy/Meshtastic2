@@ -137,6 +137,19 @@ private fun ContactHeader(
         Tag(
             text = contact.shortName,
             onClick = onNodeChipClick,
+            modifier =
+            Modifier
+                .width(IntrinsicSize.Min)
+                .height(32.dp)
+                .semantics { contentDescription = contact.shortName },
+            label = {
+                Text(
+                    text = contact.shortName,
+                    modifier = Modifier.fillMaxWidth(),
+                    style = MaterialTheme.typography.labelLarge,
+                    textAlign = TextAlign.Center,
+                )
+            },
             colors = colors,
             modifier =
             Modifier
@@ -175,13 +188,13 @@ private fun ContactHeader(
 
         Row(verticalAlignment = Alignment.CenterVertically) {
             // Show unlock icon for broadcast with default PSK
-            val isBroadcast =
-                with(contact.contactKey) { getOrNull(1) == '^' || endsWith("^all") || endsWith("^broadcast") }
+            val contactKey = contact.contactKey
+            val isBroadcast = contactKey.getOrNull(1) == '^' || contactKey.endsWith("^all") || contactKey.endsWith("^broadcast")
 
             if (isBroadcast && channels != null) {
-                val channelIndex = contact.contactKey[0].digitToIntOrNull()
+                val channelIndex = contactKey.getOrNull(0)?.digitToIntOrNull()
                 channelIndex?.let { index ->
-                    SecurityIcon(channels, index, modifier = Modifier.padding(start = 4.dp))
+                    SecurityIcon(channels, index)
                 }
             }
 
