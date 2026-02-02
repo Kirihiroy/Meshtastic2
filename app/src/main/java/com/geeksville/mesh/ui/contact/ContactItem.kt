@@ -37,6 +37,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.AccessTime
 import androidx.compose.material.icons.automirrored.twotone.VolumeOff
 import androidx.compose.material3.AssistChip
+import androidx.compose.material3.AssistChipColors
 import androidx.compose.material3.AssistChipDefaults
 import androidx.compose.material3.Divider
 import androidx.compose.material3.Icon
@@ -133,25 +134,15 @@ private fun ContactHeader(
         }
 
     Row(modifier = modifier.padding(0.dp), verticalAlignment = Alignment.CenterVertically) {
-        AssistChip(
+        Tag(
+            text = contact.shortName,
             onClick = onNodeChipClick,
+            colors = colors,
             modifier =
             Modifier
                 .width(IntrinsicSize.Min)
                 .height(32.dp)
                 .semantics { contentDescription = contact.shortName },
-            label = {
-                Text(
-                    text = contact.shortName,
-                    modifier = Modifier.fillMaxWidth(),
-                    style = MaterialTheme.typography.labelLarge,
-                    textAlign = TextAlign.Center,
-                )
-            },
-            leadingIcon = {
-                Icon(imageVector = Icons.Rounded.Tag, contentDescription = null)
-            },
-            colors = colors,
         )
 
         Column(
@@ -204,6 +195,28 @@ private fun ContactHeader(
             }
         }
     }
+}
+
+@Composable
+private fun Tag(
+    text: String,
+    onClick: () -> Unit,
+    colors: AssistChipColors,
+    modifier: Modifier = Modifier,
+) {
+    AssistChip(
+        onClick = onClick,
+        modifier = modifier,
+        label = {
+            Text(
+                text = text,
+                modifier = Modifier.fillMaxWidth(),
+                style = MaterialTheme.typography.labelLarge,
+                textAlign = TextAlign.Center,
+            )
+        },
+        colors = colors,
+    )
 }
 
 private const val UNREAD_MESSAGE_LIMIT = 99
